@@ -20,13 +20,11 @@ const App = () => {
 
     const searchMovies = async (API) => {
         const response = await axios(API);
-     console.log("Response", response.data.results);
         setMovies(response.data.results);
       };
         
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(searchTerm)
         if(searchTerm){
             searchMovies(SEARCH_API + searchTerm);
             setSearchTerm('');
