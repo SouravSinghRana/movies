@@ -21,6 +21,7 @@ const App = () => {
     const searchMovies = async (API) => {
         const response = await axios(API);
         setMovies(response.data.results);
+        
       };
         
     const handleSubmit = (e) => {
@@ -40,7 +41,6 @@ const App = () => {
         <div className="root">
             <header>
                 <form onSubmit={handleSubmit}>
-
                     <input 
                     className="search"
                     type="search"
@@ -51,11 +51,14 @@ const App = () => {
                 </form>
             </header>
             <div className="movie-container">
-                
             {
-               movies.length > 0 &&  movies.map( (movie) => {
-                   return <Movie key={movie.id} movie={movie}/>
-                })
+                movies.length > 0 
+                ?
+                movies.map( (movie) => {
+                        return <Movie key={movie.id} movie={movie}/>
+                    })
+                : 
+                <div className="ui red message" style={{"marginTop":"10px"}}>Sorry No Movies Found With Your Search Term</div>
             }
             </div>
         </div>
