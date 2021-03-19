@@ -39,6 +39,7 @@ const App = () => {
         if(searchTerm){
             searchMovies(SEARCH_API + searchTerm);
             setSearchTerm('');
+            setError(false)
         }
     }
 
