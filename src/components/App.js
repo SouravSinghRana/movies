@@ -13,16 +13,26 @@ const App = () => {
 
     const [movies , setMovies] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
-     useEffect(() => { 
+     useEffect(() => {
         searchMovies(FEATURED_API);
+
     }, []);
 
     const searchMovies = async (API) => {
+        setLoading(true) 
         const response = await axios(API);
-        setMovies(response.data.results);
-        
+        setLoading(false)
+        if(response.data.results.length > 0){
+            setMovies(response.data.results);
+        }
+        if(response.data.results.length == 0){
+            setError(true)
+        } 
       };
+    
         
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -37,7 +47,7 @@ const App = () => {
 
     }
 
-    return (
+    return(
         <div className="root">
             <header>
                 <form onSubmit={handleSubmit}>
@@ -52,17 +62,23 @@ const App = () => {
             </header>
             <div className="movie-container">
             {
-                movies.length > 0 
-                ?
-                movies.map( (movie) => {
+                loading ? 
+                <div style={{"marginTop":"20px"}}>
+                    <div className="ui active dimmer">
+                        <div className="ui text loader">Loading</div>
+                    </div>
+                </div> 
+                :
+                error ? 
+                <div className="ui red message" style={{"marginTop":"10px"}}>Sorry No Movies Found With Your Search Term</div> 
+                :  
+                movies.length > 0 && movies.map( (movie) => {
                         return <Movie key={movie.id} movie={movie}/>
-                    })
-                : 
-                <div className="ui red message" style={{"marginTop":"10px"}}>Sorry No Movies Found With Your Search Term</div>
+                })
             }
             </div>
         </div>
     );
 }
 
-export default App;
+export default App
