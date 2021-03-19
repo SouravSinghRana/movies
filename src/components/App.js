@@ -28,7 +28,7 @@ const App = () => {
         if(response.data.results.length > 0){
             setMovies(response.data.results);
         }
-        if(response.data.results.length == 0){
+        if(response.data.results.length === 0){
             setError(true)
         } 
       };
