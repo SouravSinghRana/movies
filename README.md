@@ -2,7 +2,7 @@
 
 ## What is the use of this Repo
 
-This Project is demonstrates the following
+This Project demonstrates the following
 1. Creating a Component in React
 2. Making HTTP calls
 3. Communicating between parent and child component
